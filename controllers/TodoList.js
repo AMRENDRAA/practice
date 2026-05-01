@@ -1,6 +1,6 @@
 //Jai shree Ram
 //crud 
-
+const mongoose = require('mongoose');
 
 const Todo = require('../Models/TodoModel');
 
@@ -146,5 +146,41 @@ const gettaskbystatus = async (req, res) => {
 //crud 
 
 
-module.exports = { todotasklist, createTodo, deletetaskbyid, gettaskbystatus };
+//Update the task status 
+
+const updatetaskbyid = async (req, res) => {
+
+
+    try {
+
+        // Check if ID is a valid MongoDB ObjectId
+        if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+            return res.status(400).json({ message: "Invalid ID format" });
+        }
+
+
+        const updatedTask = await Todo.findByIdAndUpdate(
+            req.params.id,
+            { $set: req.body },
+            { new: true, runValidators: true }
+        );
+
+        if (!updatedTask) {
+            return res.status(404).json({ message: "Task not found" });
+        }
+
+        res.status(200).json({ status: "Success", data: updatedTask });
+
+
+
+
+
+    } catch (err) {
+        res.status(500).json({ status: "Failed", error: err.message });
+    }
+
+}
+
+
+module.exports = { todotasklist, createTodo, deletetaskbyid, gettaskbystatus, updatetaskbyid };
 

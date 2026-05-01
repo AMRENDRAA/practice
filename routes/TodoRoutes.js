@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { todotasklist, createTodo, deletetaskbyid, gettaskbystatus } = require('../controllers/TodoList');
+const { todotasklist, createTodo, deletetaskbyid, gettaskbystatus, updatetaskbyid } = require('../controllers/TodoList');
 
 
 console.log("todotasklist:", typeof todotasklist);
@@ -11,6 +11,9 @@ router.post("/", createTodo);
 router.delete("/:id", deletetaskbyid);
 
 router.get("/:status", gettaskbystatus);
+
+router.put("/:id", updatetaskbyid);
+
 
 
 

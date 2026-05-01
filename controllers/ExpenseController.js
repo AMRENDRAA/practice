@@ -121,4 +121,33 @@ const deleteexpense = async (req, res) => {
 
 }
 
-module.exports = { createExpenses, getallexpense, deleteexpense }
+const updateexpense = async (req, res) => {
+
+    try {
+
+        const updateexpenses = await Expense.findByIdAndUpdate(req.params.id, req.body, {
+
+            new: true,
+            runValidators: true
+        })
+
+        if (!updateexpenses) {
+            res.status(400).json({
+                status: "Failed"
+            })
+        }
+
+        res.status(200).json({
+            status: "Success",
+            data: updateexpenses
+        })
+    } catch (err) {
+        res.status(500).json({
+            status: "Failed",
+            err: err.message
+        })
+    }
+
+}
+
+module.exports = { createExpenses, getallexpense, deleteexpense, updateexpense }

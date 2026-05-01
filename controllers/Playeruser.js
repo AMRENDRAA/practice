@@ -81,4 +81,36 @@ const getallplayer = async (req, res) => {
     }
 }
 
-module.exports = { createplayer, getallplayer }
+
+
+const deleteplayer = async (req, res) => {
+
+
+    try {
+
+        const id = req.params.id;
+
+        const getdeleteid = await PlayerSchema.findByIdAndDelete(id);
+
+
+        if (!getdeleteid) {
+            res.status(400).json({
+
+                status: "Failed",
+                error: "cannot deleted or already deleted"
+            })
+        }
+
+        res.status(204).json({
+            status: "Success"
+        })
+    } catch (err) {
+        res.status(500).json({
+            status: "Failed",
+            err: err.message
+        })
+    }
+
+}
+
+module.exports = { createplayer, getallplayer, deleteplayer }

@@ -33,9 +33,16 @@ app.use("/api/todo", require("./routes/TodoRoutes"));
 app.use("/api/expense", require("./routes/ExpenseRoute"));
 app.use("/api/student", require("./routes/StudentRoute"));
 app.use("/api/playerinfo", require("./routes/Playerinfo"));
+app.use("/api/socialIdentify", require("./routes/socialRoutes"))
 
 
 app.use("/api/sports", require("./routes/sportsRoute"));
+app.use("/api/gymmember", require("./routes/gymRoutes"));
+
+app.use("/api/bookpublish", require("./routes/bookRoute"));
+
+app.use("/api/health", require("./routes/healthRoute"));
+
 
 
 app.use(errorHandler);
