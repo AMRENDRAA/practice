@@ -1,7 +1,5 @@
 # Project Name
 
-CRUD APPLICATION 
-
 ## 🏗️ Architecture: Model-View-Controller (MVC)
 
 This project is built using the **MVC (Model-View-Controller)** design pattern. This structural separation ensures a clean **Separation of Concerns**, making the codebase modular, highly maintainable, and scalable.
