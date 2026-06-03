@@ -68,7 +68,7 @@ const deletestudentid = async (req, res) => {
         if (!deletedstudent) {
             return res.status(400).json({
                 status: "fAILED",
-                err: "not found"
+                message: "Article not found "
             })
         }
 
@@ -81,7 +81,7 @@ const deletestudentid = async (req, res) => {
     } catch (err) {
         res.status(400).json({
             status: "failed",
-            err: err.message
+            error: err.error
         })
     }
 }

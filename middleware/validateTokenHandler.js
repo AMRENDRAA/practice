@@ -3,6 +3,11 @@ const jwt = require("jsonwebtoken");
 
 
 const validateToken = asyncHandler(async (req, res, next) => {
+
+
+
+
+
     // console.log("SECRET IN MIDDLEWARE:", process.env.ACCESS_TOKEN_SECRET);
 
     let token = req.headers.authorization || req.headers.Authorization;
@@ -30,3 +35,6 @@ const validateToken = asyncHandler(async (req, res, next) => {
 });
 
 module.exports = validateToken;
+
+
+

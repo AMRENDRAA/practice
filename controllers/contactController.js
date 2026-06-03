@@ -22,7 +22,7 @@ const getallContacts = asyncHandler(async (req, res) => {
 
 
     res.status(200).json({
-        message: "Hello this response  is to fetch  all contacts details   ",
+        message: "All Details ",
         contacts: contacts
     })
 })
@@ -105,8 +105,15 @@ const deleteContact = asyncHandler(async (req, res) => {
         res.status(404);
         throw new Error("Contact not found");
     }
-    await contact.deleteOne();
 
+    if (contact.user_id.toString() !== req.user.id) {
+        res.status(403).json({
+            status: "Failed ",
+            err: err.message
+        })
+    }
+
+    await contact.deleteOne();
 
 
     res.status(201).json({
@@ -123,7 +130,7 @@ const deleteContact = asyncHandler(async (req, res) => {
 //@ access private  
 
 const getContact = asyncHandler(async (req, res) => {
-    const contact = await Contact.findById(req.params.id);
+    const contact = await Contact.find({ user_id: req.user.id, _id: req.params.id });
     if (!contact) {
         res.status(404);
         throw new Error("Contact not found")

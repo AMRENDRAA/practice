@@ -7,7 +7,7 @@ const jwt = require("jsonwebtoken");
 
 
 // @desc register  a user  
-//@ route POST  /api/user  
+//@ route POST  /api/users/register
 //@ access public 
 
 const registeruser = asyncHandler(async (req, res) => {
@@ -22,30 +22,45 @@ const registeruser = asyncHandler(async (req, res) => {
 
     const userAvailable = await User.findOne({ email });
 
+    //if user is already available 
+
+
+
     if (userAvailable) {
         return res.status(400).json({
             message: "User is already registered"
         });
     }
 
-    // Hash Password
+    // cerate the Hash Password
+
+
     //we use the bcrypt library to hash the password 
+
+    // Hash(orginal password ,salt round )
 
 
     const hashedpassword = await bcrypt.hash(password, 10);
+
+
     console.log(hashedpassword);
+
+
+    // now create the user 
+
 
     const user = await User.create({
         username,
         email,
-        password: hashedpassword
+        password: hashedpassword,
+
     });
     console.log(`User created ${user}`);
 
 
     if (!user) {
         return res.status(400).json({
-            message: "User data is incorrect"
+            message: "User data is invalid "
         });
     }
 
@@ -81,6 +96,9 @@ const loginuser = asyncHandler(async (req, res) => {
 
 
     const user = await User.findOne({ email });
+
+
+
     // compare password with hashedpassword
 
 
